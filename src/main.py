@@ -3,7 +3,7 @@ from utils import *
 
 
 def main():
-    f = open('../urls_reclamos.csv')
+    f = open('../../urls_reclamos.csv')
     for line in f:
         line = line.replace('"', '')
         url = line.replace('\n','')

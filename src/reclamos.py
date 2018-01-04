@@ -1,8 +1,12 @@
 
 class reclamos:
+    
+    
     def __init__(self, title, description, keywords, itemreview, summary,
                  date_reclamo, ip_autor, state_rec, reclamo,
                  ip_user, visitas):
+        
+        
         self.title = title
         self.description = description
         self.keywords = keywords

@@ -4,7 +4,7 @@ class reclamos:
     
     def __init__(self, title, description, keywords, itemreview, summary,
                  date_reclamo, ip_info, state_rec, reclamo,
-                 ip_user, visitas):
+                 ip_user, visitas, campo_empresa, empresa):
         
         
         self.title = title
@@ -19,3 +19,5 @@ class reclamos:
         self.reclamo = reclamo
         self.ip_user = ip_user
         self.visitas = visitas
+        self.campo_empresa = campo_empresa
+        self.empresa = empresa

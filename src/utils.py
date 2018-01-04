@@ -2,6 +2,7 @@ import time
 from bs4 import BeautifulSoup
 import urllib.request
 import re
+import csv
 
 
 def getTitle(soup):
@@ -99,3 +100,11 @@ def getVisitas(soup):
     except:
         print('No se encontró el numero de visitas')
         return ''
+
+
+def writeCSV(reclamo, path_out):
+
+    line = reclamo.title + '\t' + reclamo.description + '\t' + reclamo.keywords + '\t' + reclamo.itemreview +'\t' + reclamo.summary + '\t' + reclamo.date_reclamo + '\t' +  reclamo.ip_info +'\t' +reclamo.state_rec + '\t' + reclamo.reclamo + '\t' + reclamo.ip_user + '\t' + reclamo.visitas + '\n'
+
+    with open(path_out, "a") as csv_file:
+        csv_file.write(line)

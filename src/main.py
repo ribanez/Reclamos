@@ -4,6 +4,11 @@ from utils import *
 
 def main():
     f = open('../../urls_reclamos.csv')
+
+    path_out_csv = '../data/reclamos_raw.csv'
+    header = reclamos('title', 'description', 'keywords', 'itemreview', 'summary', 'date_reclamo', 'ip_info', 'state_rec', 'reclamo', 'ip_user', 'visitas')
+    writeCSV(header, path_out_csv)
+
     for line in f:
         line = line.replace('"', '')
         url = line.replace('\n','')
@@ -31,7 +36,8 @@ def main():
                                  summary, date_reclamo, ip_info, state_rec,
                                  reclamo, ip_info, visitas)
 
-            #print(reclamo_i.reclamo)
+            
+            writeCSV(reclamo_i, path_out_csv)
 
     print('\n urls recorridas con éxito \n')
 

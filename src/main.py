@@ -5,9 +5,7 @@ from utils import *
 def main():
     f = open('../../urls_reclamos.csv')
 
-    path_out_csv = '../data/reclamos_raw.csv'
-    header = reclamos('title', 'description', 'keywords', 'itemreview', 'summary', 'date_reclamo', 'ip_info', 'state_rec', 'reclamo', 'ip_user', 'visitas', 'campo_empresa', 'empresa')
-    writeCSV(header, path_out_csv)
+    path_out_csv = '../data/reclamos_raw.json'
 
     for line in f:
         line = line.replace('"', '')
@@ -46,7 +44,7 @@ def main():
                                  reclamo, ip_info, visitas, campo_empresa, empresa)
 
             
-            writeCSV(reclamo_i, path_out_csv)
+            writeJson(reclamo_i, path_out_csv)
 
     print('\n urls recorridas con éxito \n')
 

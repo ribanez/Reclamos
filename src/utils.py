@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import urllib.request
 import re
 import csv
+import json
+
 
 path_err = '../data/errores.log'
 
@@ -133,21 +135,17 @@ def getEmpresa(soup, url):
         return ''
 
 
-def writeCSV(reclamo, path_out):
-
-    line = reclamo.title + '\t' + reclamo.description + '\t' + reclamo.keywords + '\t' + reclamo.itemreview +'\t' + reclamo.summary + '\t' + reclamo.date_reclamo + '\t' +  reclamo.ip_info +'\t' +reclamo.state_rec + '\t' + reclamo.reclamo + '\t' + reclamo.ip_user + '\t' + reclamo.visitas + '\t' + reclamo.campo_empresa + '\t' + reclamo.empresa + '\n'
-
-    with open(path_out, "a") as csv_file:
-        csv_file.write(line)
-
-
-def loadCSV(path_in):
-    with open(path_in, "rb") as f:
-        reader = csv.reader(f, delimiter='\t')
-        for line in reader:
-             yield line
+def rec2json(reclamo):
+   data = {"Reclamo" : [ { "title":reclamo.title, "description":reclamo.description, "keywords":reclamo.keywords, "itemreview":reclamo.itemreview, "summary":reclamo.summary, "date_reclamo":reclamo.date_reclamo, "ip_info":reclamo.ip_info, "state_rec":reclamo.state_rec, "reclamo":reclamo.reclamo, "ip_user":reclamo.ip_user, "visitas":reclamo.visitas, "campo_empresa":reclamo.campo_empresa, "empresa":reclamo.empresa } ] }
+   return data
 
 
 def write_error(error, path_file = path_err ):
     with open(path_file, "a") as f:
         f.write(error + '\n')
+
+
+def writeJson(reclamo, path_out): 
+    data = rec2json(reclamo)
+    with open(path_out, 'a') as outfile:
+        json.dump(data, outfile)

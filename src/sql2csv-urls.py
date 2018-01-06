@@ -3,6 +3,8 @@ import MySQLdb
 
 def main():
 
+    # Editar Datos  del Connect según sea el caso
+
     db = MySQLdb.connect(host="localhost",
                          user="diego",
                          passwd="",

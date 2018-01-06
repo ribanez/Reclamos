@@ -1,0 +1,99 @@
+#####################################
+
+
+# Actualizar linux
+
+sudo apt update
+sudo apt dist-upgrade
+
+
+#####################################
+
+
+# Instalar MySQL (server y client - just in case)
+# No le asigné un pass
+
+sudo apt install mysql-server
+sudo apt install mysql-client
+
+
+# Verificar que mysql esté corriendo
+sudo service mysql status
+
+
+# root
+sudo su
+
+
+# Entrar a shell de mysql
+mysql
+
+
+# Crear database con nombre RECLAMOS
+create database RECLAMOS;
+
+
+# presionar ctrl + d para salir o tipear exit
+exit
+
+
+# Hacer dump desde el archivo sql (reclamos.cl.sql) a la base de datos creada anteriormente (RECLAMOS)
+mysql -u root -p RECLAMOS < reclamos.cl.sql
+
+
+# La base de datos se creará aquí
+sudo su
+cd /var/lib/mysql
+
+
+#####################################
+
+
+# Dar todos los permisos al usuario (para no tener que correr el script con sudo)
+# En mi caso, el usuario es: diego
+
+
+sudo mysql
+
+CREATE USER 'diego'@'localhost' IDENTIFIED BY '';
+
+GRANT ALL ON *.* TO 'diego'@'localhost';
+
+exit
+
+
+# Con esto verificas si es que fue correcto (te deja entrar a la shell de mysql)
+
+mysql -u diego -p
+
+
+#####################################
+
+
+# Instalar MySQLdb para manipular la base de datos desde Python3
+
+sudo apt install -y python3-mysqldb --upgrade
+
+
+#####################################
+
+
+# Script básico para leer todas las urls desde la base de datos RECLAMOS
+
+
+import MySQLdb
+
+db = MySQLdb.connect(host="localhost",
+                     user="diego",
+                     passwd="",
+                     db="RECLAMOS")
+
+cur = db.cursor()
+
+cur.execute("SELECT url FROM  html")
+
+for row in cur.fetchall():
+    url = row[0]
+    print(url)
+
+#####################################

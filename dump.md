@@ -2,7 +2,7 @@
 
 ## Pasos previos
 
-### Actualizar linux
+### Actualizar Linux
 
 Abrir una terminal ( *ctrl + alt + t* ) y ejecutar los siguientes comandos
 

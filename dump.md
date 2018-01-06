@@ -59,6 +59,7 @@ mysql> exit
 
 Desde la terminal, hacer dump desde el archivo *SQL* (*reclamos.cl.sql*) a la base de datos creada anteriormente (*RECLAMOS*)
 
+
 ```
 mysql -u root -p RECLAMOS < reclamos.cl.sql
 ```

@@ -2,7 +2,7 @@
 
 ## Pasos previos
 
-### Actualizar Linux
+### Actualizar Ubuntu ( o Derivados de Debian)
 
 Abrir una terminal ( *ctrl + alt + t* ) y ejecutar los siguientes comandos
 

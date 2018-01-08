@@ -109,7 +109,7 @@ def getReclamo(soup, url):
 def getIP_user(soup, url):
     try:
         ips =  soup.find('div', {'class':"reclamo-meta-autor"}).text
-        return re.findall( r'[0-9]+(?:\.[0-9]+){3}', ips )
+        return re.findall( r'[0-9]+(?:\.[0-9]+){3}', ips )[0]
     except:
         error = 'IP user no encontrada, url {}'.format(url)
         write_error(error, path_err)
@@ -209,6 +209,6 @@ def proReclamo(html, url):
         visitas = getVisitas(soup, url)
         campo_empresa = getCampoEmpresa(soup, url)
         empresa = getEmpresa(soup, url)
-        reclamo_i = reclamos(title, description, keywords, itemreview, summary, date_reclamo, ip_info, state_rec, reclamo, ip_info, visitas, campo_empresa, empresa)
+        reclamo_i = reclamos(title, description, keywords, itemreview, summary, date_reclamo, ip_info, state_rec, reclamo, ip_user, visitas, campo_empresa, empresa)
         return reclamo_i
     return None

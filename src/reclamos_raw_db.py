@@ -43,11 +43,6 @@ def table2dump():
 def main_html2db():
     data_base_exist = False
     batch_size = 512
-    DB_HOST = 'localhost'
-    DB_USER = 'ribanez'
-    DB_PASSWORD = 'abc123'
-    DB_NAME = 'RECLAMOS_RAW'
-
 
     cursor = dbconnect(host="localhost",
                      user="ribanez",

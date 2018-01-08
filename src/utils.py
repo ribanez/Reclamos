@@ -6,6 +6,8 @@ import csv
 import json
 from itertools import islice
 from reclamos import *
+import MySQLdb
+from datetime import datetime
 
 
 path_err = '../data/errores.log'
@@ -57,7 +59,9 @@ def getSummary(soup, url):
 
 def getDate_reclamo(soup, url):
     try:
-        return soup.find("span", {"property": "v:dtreviewed"}).text
+        aux = soup.find("span", {"property": "v:dtreviewed"}).text
+        date = datetime.strptime(aux.split(' ',1)[1], "%d, %B %Y")
+        return date
     except:
         error = 'Fecha reclamo no encontrada, url {}'.format(url)
         write_error(error, path_err)
@@ -66,7 +70,9 @@ def getDate_reclamo(soup, url):
 
 def getDate_consulta(soup, url):
     try:
-        return soup.find("div", {"class": "date"}).text
+        aux = soup.find("div", {"class": "date"}).text
+        date = datetime.strptime(aux.split(' ',1)[1], "%d, %B %Y")
+        return date
     except:
         error = 'Fecha consulta no encontrada, url {}'.format(url)
         write_error(error, path_err)
@@ -112,7 +118,9 @@ def getIP_user(soup, url):
 
 def getVisitas(soup, url):
     try:
-        return soup.find('span', {'class':"cantidad-visitas"}).text
+        aux = soup.find('span', {'class':"cantidad-visitas"}).text
+        visitas = int(aux.split()[0])
+        return visitas
     except:
         error = 'No se encontró el numero de visitas, url {}'.format(url)
         write_error(error, path_err)
@@ -174,8 +182,20 @@ def getURL(url):
     return soup
 
 
-def proReclamo(soup, url):
-    if soup != None:
+def dbconnect(host, user, passwd, db):
+    db = MySQLdb.connect(host=host,
+                     user=user,
+                     passwd=passwd,
+                     db=db)
+    cursor = db.cursor()
+    return cursor
+
+
+def proReclamo(html, url):
+    soup = BeautifulSoup(html, 'html.parser')
+    if html != None:
+        reclamo = getReclamo(soup, url)
+        if reclamo == '': return None
         title = getTitle(soup, url)
         description = getDescription(soup, url)
         keywords = getKeywords(soup, url)
@@ -185,7 +205,6 @@ def proReclamo(soup, url):
         #date_consulta = getDate_consulta(soup, url)
         ip_info = getIP_info(soup, url)
         state_rec = getState_rec(soup, url)
-        reclamo = getReclamo(soup, url)
         ip_user = getIP_user(soup, url)
         visitas = getVisitas(soup, url)
         campo_empresa = getCampoEmpresa(soup, url)
